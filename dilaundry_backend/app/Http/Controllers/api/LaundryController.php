@@ -10,7 +10,7 @@ class LaundryController extends Controller
 {
       function readAll()
     {
-        $laundries = Laundry::all();
+        $laundries = Laundry::with('user','shop')->get();
         return response()->json([
             // 'message' => 'Ini adalah readAll dari UserController',
             'data' => $laundries,

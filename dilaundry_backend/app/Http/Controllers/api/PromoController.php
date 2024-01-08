@@ -10,7 +10,7 @@ class PromoController extends Controller
 {
       function readAll()
     {
-        $promos = Promo::all();
+        $promos = Promo::with('shop')->get();
         return response()->json([
             // 'message' => 'Ini adalah readAll dari UserController',
             'data' => $promos,
