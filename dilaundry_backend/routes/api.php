@@ -33,4 +33,5 @@ Route::post('/login',[UserController::class,'login']);
 
 Route::middleware('auth:sanctum')->group(function (){
     Route::get('/promo/limit',[PromoController::class,'readLimit']);
+    Route::get('/shop/recommendation/limit',[ShopController::class,'readRecommendationLimit']);
 });
