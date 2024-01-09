@@ -38,10 +38,10 @@ class UserController extends Controller
         ]);
 
         return response()->json([
-            // 'message' => 'Register Success',
+            'message' => 'Register Success',
             'data' => $user,
 
-        ], 201);
+        ], 200);
     }
 
         function login(Request $request){
@@ -56,7 +56,7 @@ class UserController extends Controller
         $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json([
-            // 'message' => 'Register Success',
+            'message' => 'Login Success',
             'data' => $user,
             'token' => $token
         ], 200);
