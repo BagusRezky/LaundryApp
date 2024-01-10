@@ -40,4 +40,40 @@ class LaundryController extends Controller
             'data' => $laundries,
         ], 200);
     }
+
+    function claim(Request $request)
+    {
+
+        $laundry = Laundry::where([
+            ['id', '=', $request -> id],
+            ['claim_code', '=', $request -> claim_code],
+        ])->first();
+
+        if (!$laundry) {
+            return response()->json([
+                'message' => 'Kode claim tidak ditemukan',
+            ], 404);
+        }
+
+        if ($laundry -> user_id != 0) {
+            return response()->json([
+                'message' => 'Laundry sudah diambil',
+            ], 400);
+        }
+
+        $laundry -> user_id = $request -> user_id;
+        $updated =$laundry -> save();
+
+        if ($updated) {
+            return response()->json([
+                'message' => 'Berhasil mengambil laundry',
+                'data' => $updated,
+            ], 200);
+        } else {
+            return response()->json([
+                'message' => 'Gagal mengambil laundry',
+            ], 500);
+        }
+
+    }
 }
