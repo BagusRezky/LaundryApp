@@ -23,7 +23,7 @@ class UserController extends Controller
 
     function register(Request $request)
     {
-        $request->validate($request, [
+        $this->validate($request, [
             'username' => 'required|min:4|unique:users',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:8',
@@ -38,7 +38,7 @@ class UserController extends Controller
         ]);
 
         return response()->json([
-            'message' => 'Register Success',
+            // 'message' => 'Register Success',
             'data' => $user,
 
         ], 200);
@@ -47,7 +47,7 @@ class UserController extends Controller
         function login(Request $request){
         if (!Auth::attempt($request->only('email', 'password'))) {
             return response()->json([
-                'message' => 'Invalid login details'
+                'message' => 'unauthorized'
             ], 401);
         }
 
@@ -56,7 +56,6 @@ class UserController extends Controller
         $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json([
-            'message' => 'Login Success',
             'data' => $user,
             'token' => $token
         ], 200);
